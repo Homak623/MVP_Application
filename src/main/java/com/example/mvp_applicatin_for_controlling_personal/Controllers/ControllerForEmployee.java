@@ -26,6 +26,7 @@ public class ControllerForEmployee
             @PathVariable String department,
             @PathVariable Integer id
     ) {
+
         Employee employee = serviceForEmployees.findEmployee(department, id);
 
         if (employee == null) {

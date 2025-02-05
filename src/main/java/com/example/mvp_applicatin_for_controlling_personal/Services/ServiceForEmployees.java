@@ -15,8 +15,8 @@ public class ServiceForEmployees
 
     {
         employees.add(new Employee(++ID,"Nikitos", 1000.1F,"Buca",false));
-        employees.add(new Employee(++ID,"Zaharos", 1500.1F,"Buchalteria",false));
-        employees.add(new Employee(++ID,"Egoros", 1500.1F,"Buchalteria",false));
+        employees.add(new Employee(++ID,"Zaharos", 1200.1F,"Buchalteria",false));
+        employees.add(new Employee(++ID,"Egoros", 1500.1F,"Buchalteria",true));
     }
 
     public List<Employee> getAllEmployers(String department)
