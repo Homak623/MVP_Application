@@ -4,7 +4,7 @@ package com.example.mvp_applicatin_for_controlling_personal.Entities;
 import lombok.*;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.RestController;
-
+///
 public class Employee
 {
     private Long id;
