@@ -8,14 +8,15 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-///
+
 @Service
 public class ServiceForDepartments implements ServiceIntrForDepartment
 {
     private List<Department> departments = new ArrayList<>();
     private static long ID = 0;
 
-    public ServiceForDepartments() {
+    @Override
+    public void ServiceForDepartments() {
         departments.add(new Department(++ID, "Buchalteria"));
         departments.add(new Department(++ID, "OneMore"));
     }
