@@ -1,6 +1,11 @@
 package com.example.mvp_applicatin_for_controlling_personal.Services;
 
+import com.example.mvp_applicatin_for_controlling_personal.Entities.Department;
 import com.example.mvp_applicatin_for_controlling_personal.Entities.Employee;
+import com.example.mvp_applicatin_for_controlling_personal.repository.DepartmentRepository;
+import com.example.mvp_applicatin_for_controlling_personal.repository.EmployeeRepository;
+import jakarta.transaction.Transactional;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -8,59 +13,53 @@ import java.util.List;
 import java.util.stream.Collectors;
 ///
 @Service
-public class ServiceForEmployees implements ServiceIntrForEmployees
-{
-    private List<Employee> employees = new ArrayList<Employee>();
-    private static long ID = 0;
+public class ServiceForEmployees {
 
-    {
-        employees.add(new Employee(++ID,"Nikitos", 1000.1F,"Buca",false));
-        employees.add(new Employee(++ID,"Zaharos", 1200.1F,"Buchalteria",false));
-        employees.add(new Employee(++ID,"Egoros", 1500.1F,"Buchalteria",true));
+    private final EmployeeRepository employeeRepository;
+
+    public ServiceForEmployees(EmployeeRepository employeeRepository, DepartmentRepository departmentRepository) {
+        this.employeeRepository = employeeRepository;
+        this.departmentRepository = departmentRepository;
     }
 
-    public List<Employee> getAllEmployers(String department)
-    {
-        List<Employee> employeesOfDepartment = employees.stream()
-                .filter(employee -> employee.getDepartment()
-                        .equals(department)
-        ).collect(Collectors.toList());
-        return employeesOfDepartment;
+    private final DepartmentRepository departmentRepository;
+
+    public List<Employee> getAllEmployers(String departmentName) {
+        return employeeRepository.findByDepartmentName(departmentName);
     }
 
-    public Employee findEmployee(String department, Integer id) {
-        return employees.stream()
-                .filter(employee -> employee.getDepartment().equals(department))
-                .filter(employee -> employee.getId().equals(Long.valueOf(id)))
-                .findFirst()
-                .orElse(null);
+    public Employee findEmployee(String departmentName, Long id) {
+        return employeeRepository.findByIdAndDepartmentName(id, departmentName).orElse(null);
     }
 
-    public boolean deleteEmployee(String department, Integer id)
-    {
-        return employees.removeIf(employee -> {
-            if (employee.getDepartment().equals(department) && employee.getId().equals(Long.valueOf(id))){
-                return true;
-            }
-            return false;
-        });
+    @Transactional
+    public boolean deleteEmployee(String departmentName, Long id) {
+        Employee employee = findEmployee(departmentName, id);
+        if (employee != null) {
+            employeeRepository.delete(employee);
+            return true;
+        }
+        return false;
     }
 
-    public Employee addEmployee(Employee employee) {
-        employee.setId(++ID);
-        employees.add(employee);
-        return employee;
+
+    public Employee addEmployee(Employee employee, String departmentName) {
+        Department department = (Department) departmentRepository.findByName(departmentName)
+                .orElseThrow(() -> new RuntimeException("Department not found"));
+
+        employee.setDepartment(department);
+        return employeeRepository.save(employee);
     }
 
-    public Employee updateEmployee(String department, Long id, Employee updatedEmployee) {
-        Employee existingEmployee = findEmployee(department, Math.toIntExact(id));
+    public Employee updateEmployee(String departmentName, Long id, Employee updatedEmployee) {
+        Employee existingEmployee = findEmployee(departmentName, id);
         if (existingEmployee != null) {
             existingEmployee.setName(updatedEmployee.getName());
             existingEmployee.setSalary(updatedEmployee.getSalary());
             existingEmployee.setManager(updatedEmployee.getManager());
-            return existingEmployee;
+            return employeeRepository.save(existingEmployee);
         }
         return null;
     }
-
 }
+

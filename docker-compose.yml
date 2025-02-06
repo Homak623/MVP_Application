@@ -1,0 +1,30 @@
+version: '3.8'
+
+volumes:
+  postgres_MVP:
+
+services:
+  MVP_db:
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_DB: employee_db
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_MVP:/var/lib/postgresql/data
+
+  app:
+    build: .
+    restart: always
+    depends_on:
+      - MVP_db
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://MVP_db:5432/employee_db
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: postgres
+      SPRING_JPA_HIBERNATE_DDL_AUTO: update
+    ports:
+      - "8080:8080"
