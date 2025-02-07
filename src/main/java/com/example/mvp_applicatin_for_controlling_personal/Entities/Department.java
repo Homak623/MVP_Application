@@ -1,7 +1,7 @@
 package com.example.mvp_applicatin_for_controlling_personal.Entities;
 
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.Getter;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.RestController;
@@ -44,6 +44,14 @@ public class Department {
     public void setName(String name) { this.name = name; }
 
     public void setEmployees(List<Employee> employees) { this.employees = employees; }
+
+    public Long getId() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
+    }
 
     public List<Employee> getEmployees() { return employees; }
 

@@ -5,7 +5,6 @@ import com.example.mvp_applicatin_for_controlling_personal.Entities.Employee;
 import com.example.mvp_applicatin_for_controlling_personal.repository.DepartmentRepository;
 import com.example.mvp_applicatin_for_controlling_personal.repository.EmployeeRepository;
 import jakarta.transaction.Transactional;
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;

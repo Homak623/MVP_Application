@@ -3,9 +3,6 @@ package com.example.mvp_applicatin_for_controlling_personal.Services;
 import com.example.mvp_applicatin_for_controlling_personal.Entities.Department;
 import com.example.mvp_applicatin_for_controlling_personal.Entities.Employee;
 import com.example.mvp_applicatin_for_controlling_personal.repository.DepartmentRepository;
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -25,7 +22,7 @@ public class ServiceForDepartments {
     }
 
     public Department addDepartment(Department department) {
-        // Устанавливаем ссылку на департамент для всех сотрудников
+
         if (department.getEmployees() != null) {
             for (Employee employee : department.getEmployees()) {
                 employee.setDepartment(department);

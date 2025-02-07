@@ -2,9 +2,11 @@ package com.example.mvp_applicatin_for_controlling_personal.Entities;
 
 
 import jakarta.persistence.*;
-import lombok.*;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.Objects;
+
 ///
 
 @Entity
@@ -22,8 +24,8 @@ public class Employee {
     @Column(name = "salary")
     private Double salary;
 
-    @ManyToOne(fetch = FetchType.LAZY) // Связь многие-к-одному
-    @JoinColumn(name = "department_id", nullable = false) // Внешний ключ
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "department_id", nullable = false)
     private Department department;
 
     @Column(name = "is_manager")
@@ -62,4 +64,19 @@ public class Employee {
 
     public Boolean getManager() { return manager; }
     public void setManager(Boolean manager) { this.manager = manager; }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Employee employee = (Employee) o;
+        return Objects.equals(id, employee.id) &&
+                Objects.equals(name, employee.name) &&
+                Objects.equals(department, employee.department);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name, department);
+    }
 }
