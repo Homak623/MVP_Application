@@ -1,6 +1,6 @@
 package com.example.mvp_applicatin_for_controlling_personal.repository;
 
-import com.example.mvp_applicatin_for_controlling_personal.Entities.Employee;
+import com.example.mvp_applicatin_for_controlling_personal.entities.Employee;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

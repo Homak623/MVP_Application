@@ -1,14 +1,11 @@
-package com.example.mvp_applicatin_for_controlling_personal.ControllersTest;
+package com.example.mvp_applicatin_for_controlling_personal.controllersTest;
 
-import com.example.mvp_applicatin_for_controlling_personal.Controllers.ControllerForDepartments;
-import com.example.mvp_applicatin_for_controlling_personal.Entities.Department;
-import com.example.mvp_applicatin_for_controlling_personal.Services.ServiceForDepartments;
+import com.example.mvp_applicatin_for_controlling_personal.controllers.ControllerForDepartments;
+import com.example.mvp_applicatin_for_controlling_personal.entities.Department;
+import com.example.mvp_applicatin_for_controlling_personal.services.ServiceForDepartments;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.http.MediaType;
@@ -44,7 +41,7 @@ public class ControllerForDepartmentsTest
     public void testGetAllDepartments() throws Exception {
         when(serviceForDepartments.getAllDepartments()).thenReturn(List.of(department));
 
-        mockMvc.perform(get("/departments/"))
+        mockMvc.perform(get("/departments/getDepartments"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.size()").value(1))
                 .andExpect(jsonPath("$[0].id").value(department.getId()))
@@ -53,18 +50,20 @@ public class ControllerForDepartmentsTest
         verify(serviceForDepartments, times(1)).getAllDepartments();
     }
 
+
     @Test
     public void testAddDepartment() throws Exception {
         when(serviceForDepartments.addDepartment(any(Department.class))).thenReturn(department);
 
-        mockMvc.perform(post("/departments/")
+        mockMvc.perform(post("/departments/addDepartment")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("{\"name\":\"IT\"}"))
-                .andExpect(status().isCreated())
+                .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id").value(department.getId()))
                 .andExpect(jsonPath("$.name").value(department.getName()));
 
         verify(serviceForDepartments, times(1)).addDepartment(any(Department.class));
     }
+
 }
 

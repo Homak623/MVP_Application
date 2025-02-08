@@ -1,7 +1,7 @@
-package com.example.mvp_applicatin_for_controlling_personal.Services.Tests;
+package com.example.mvp_applicatin_for_controlling_personal.services.Tests;
 
-import com.example.mvp_applicatin_for_controlling_personal.Entities.Department;
-import com.example.mvp_applicatin_for_controlling_personal.Services.ServiceForDepartments;
+import com.example.mvp_applicatin_for_controlling_personal.entities.Department;
+import com.example.mvp_applicatin_for_controlling_personal.services.ServiceForDepartments;
 import com.example.mvp_applicatin_for_controlling_personal.repository.DepartmentRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeEach;

@@ -1,9 +1,8 @@
-package com.example.mvp_applicatin_for_controlling_personal.Services;
+package com.example.mvp_applicatin_for_controlling_personal.services;
 
-import com.example.mvp_applicatin_for_controlling_personal.Entities.Employee;
+import com.example.mvp_applicatin_for_controlling_personal.entities.Employee;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 //
 public interface ServiceIntrForEmployees
@@ -12,7 +11,7 @@ public interface ServiceIntrForEmployees
 
     public Employee findEmployee(String department, Integer id) ;
 
-    public boolean deleteEmployee(String department, Integer id);
+    public boolean deleteEmployee(Integer id);
 
     public Employee addEmployee(Employee employee) ;
 
